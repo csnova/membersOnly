@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1 Title: #{message.title}
+
+    p #[strong User: ]
+        a(href=message.user.url) #{message.user.username}
+    p #[strong Message:] #{message.text}
+    p #[strong Time: ] #{message.timestamp_formatted}

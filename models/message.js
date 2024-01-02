@@ -10,14 +10,14 @@ const MessageSchema = new Schema({
   timestamp: { type: Date, required: true },
 });
 
-//Virtual for message time/date
+//Virtual for message time/date/year
 MessageSchema.virtual("timestamp_formatted").get(function () {
   let current_timestamp = this.timestamp;
   current_timestamp = current_timestamp.toISOString();
   current_timestamp =
     DateTime.fromISO(current_timestamp).toLocaleString(DateTime.TIME_SIMPLE) +
     ", " +
-    DateTime.fromISO(current_timestamp).toLocaleString(DateTime.DATE_SHORT);
+    DateTime.fromISO(current_timestamp).toLocaleString(DateTime.DATE_MED);
   return current_timestamp;
 });
 

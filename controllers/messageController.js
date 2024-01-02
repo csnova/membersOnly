@@ -31,7 +31,21 @@ exports.message_list = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific message.
 exports.message_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: Message detail: ${req.params.id}`);
+  const [message] = await Promise.all([
+    Message.findById(req.params.id).populate("user").exec(),
+  ]);
+
+  if (message === null) {
+    // No results.
+    const err = new Error("Message not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("message_detail", {
+    title: message.title,
+    message: message,
+  });
 });
 
 // Display message create form on GET.

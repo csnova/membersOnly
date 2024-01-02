@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Message = require("../models/message");
 const asyncHandler = require("express-async-handler");
 
 // Display list of all Users.
@@ -18,7 +19,24 @@ exports.user_list = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific User.
 exports.user_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: User detail: ${req.params.id}`);
+  // Get details of user and all their messages (in parallel)
+  const [user, allMessagesByUser] = await Promise.all([
+    User.findById(req.params.id).exec(),
+    Message.find({ user: req.params.id }, "title text timestamp").exec(),
+  ]);
+
+  if (user === null) {
+    // No results.
+    const err = new Error("User not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("user_detail", {
+    title: "User Detail",
+    user: user,
+    user_messages: allMessagesByUser,
+  });
 });
 
 // Display User sign up form on GET.
