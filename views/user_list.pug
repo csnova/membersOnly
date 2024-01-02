@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    h1= title
+
+    table
+        tr
+            th Username
+            th Name
+            th Membership Status
+
+        each user in user_list
+            tr
+                td  
+                    a(href=user.url) #{user.username}
+                td  #{user.name_initial} 
+                td  #{user.membership}
+
+        else
+            li There are no users.

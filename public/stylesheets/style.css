@@ -1,8 +1,106 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html {
+  background-color: aliceblue;
 }
 
-a {
-  color: #00B7FF;
+body {
+  display: flex;
+}
+
+.sidebar {
+  margin: 20px;
+  min-width: 150px;
+  width: 200px;
+  flex-grow: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar-nav {
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav > * {
+  padding: 5px;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+table td,
+table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: #ddd;
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: white;
+}
+
+.contentBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.imageBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.categoryImageBox,
+.fabricImageBox,
+.colorImageBox {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryImageBox > *,
+.fabricImageBox > *,
+.colorImageBox > * {
+  padding: 0px;
+  margin: 0px;
+}
+
+.fullPage {
+  display: flex;
+}
+
+.headerImage {
+  display: flex;
+  justify-content: center;
+  width: 250px;
+  margin-top: 20px;
+}
+
+.container {
+  flex: 1;
+}
+
+label,
+input,
+select {
+  margin: 5px;
 }

@@ -22,9 +22,20 @@ UserSchema.virtual("name").get(function () {
   return fullname;
 });
 
+// Virtual for user's first name, last initial
+UserSchema.virtual("name_initial").get(function () {
+  let familyInitial = this.family_name;
+  familyInitial = familyInitial.substr(0, 1);
+  let nameInitial = "";
+  if (this.first_name && familyInitial) {
+    nameInitial = `${this.family_name} ${familyInitial}.`;
+  }
+  return nameInitial;
+});
+
 // Virtual for user's URL
 UserSchema.virtual("url").get(function () {
-  return `/membersOnly/user/${this._id}`;
+  return `/board/user/${this._id}`;
 });
 
 // Export model

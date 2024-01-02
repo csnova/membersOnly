@@ -2,4 +2,23 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #[em Members Only], a very exclusive message board.
+
+  h1 Site Totals
+
+  p You can currently find:
+
+  table 
+    tr 
+      th Section
+      th Quantity
+
+    tr
+      td 
+        a(href="/board/messages") Messages
+      td !{message_count}
+
+    tr
+      td 
+        a(href="/board/users") Users
+      td !{user_count}

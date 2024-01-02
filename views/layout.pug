@@ -1,7 +1,30 @@
 doctype html
-html
+html(lang='en')
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel='stylesheet' href='/stylesheets/style.css')
   body
-    block content
+    div(class='sidebar')
+      block sidebar
+        ul(class='sidebar-nav')
+          li
+            a(href='/board') Home
+          li
+            a(href='/board/users') All Users
+          li
+            a(href='/board/messages') All Messages
+          li
+            a(href='/board/user/club') Club Information
+          li
+            hr
+          li
+            a(href='/board/message/create') Create New Message
+          li
+            a(href='/board/user/sign-in') Sign In
+          li
+            a(href='/board/user/sign-up') Sign Up
+
+div(class='content')
+  block content

@@ -1,13 +1,32 @@
 const Message = require("../models/message");
+const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 
 exports.index = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Site Home Page");
+  // Get details of messages and user counts (in parallel)
+  const [numMessages, numUsers] = await Promise.all([
+    Message.countDocuments({}).exec(),
+    User.countDocuments({}).exec(),
+  ]);
+
+  res.render("index", {
+    title: "Members Only Home",
+    message_count: numMessages,
+    user_count: numUsers,
+  });
 });
 
 // Display list of all messages.
 exports.message_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Message list");
+  const allMessages = await Message.find({}, "title text user timestamp")
+    .sort({ timestamp: 1 })
+    .populate("user")
+    .exec();
+
+  res.render("message_list", {
+    title: "Message List",
+    message_list: allMessages,
+  });
 });
 
 // Display detail page for a specific message.

@@ -1,9 +1,19 @@
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 
-// Display list of all Authors.
+// Display list of all Users.
 exports.user_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: User list");
+  const allUsers = await User.find(
+    {},
+    "username first_name family_name membership"
+  )
+    .sort({ username: 1 })
+    .exec();
+
+  res.render("user_list", {
+    title: "User List",
+    user_list: allUsers,
+  });
 });
 
 // Display detail page for a specific User.
