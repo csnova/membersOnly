@@ -19,12 +19,18 @@ html(lang='en')
             a(href='/board/user/club') Club Information
           li
             hr
-          li
-            a(href='/board/message/create') Create New Message
-          li
-            a(href='/board/user/sign-in') Sign In
-          li
-            a(href='/board/user/sign-up') Sign Up
+
+          if user
+            li
+              a(href='/board/message/create') New Message
+            li
+              a(href='/board/user/sign-out') Sign Out
+
+          else
+            li
+              a(href='/board/user/sign-in') Sign In
+            li
+              a(href='/board/user/sign-up') Sign Up
 
 div(class='content')
   block content

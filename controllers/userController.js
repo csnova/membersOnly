@@ -15,6 +15,7 @@ exports.user_list = asyncHandler(async (req, res, next) => {
     .exec();
 
   res.render("user_list", {
+    user: req.user,
     title: "User List",
     user_list: allUsers,
   });
@@ -36,15 +37,16 @@ exports.user_detail = asyncHandler(async (req, res, next) => {
   }
 
   res.render("user_detail", {
+    user: req.user,
     title: "User Detail",
-    user: user,
+    current_user: user,
     user_messages: allMessagesByUser,
   });
 });
 
 // Display User sign up form on GET.
 exports.user_sign_up_get = (req, res, next) => {
-  res.render("new_user_form", { title: "Sign Up Form" });
+  res.render("new_user_form", { user: req.user, title: "Sign Up Form" });
 };
 
 // Handle User sign up on POST.
@@ -100,14 +102,31 @@ exports.user_sign_up_post = [
 
 // Display User sign in form on GET.
 exports.user_sign_in_get = asyncHandler(async (req, res, next) => {
-  res.render("user_form", { title: "Sign In Form" });
+  res.render("user_form", { user: req.user, title: "Sign In Form" });
 });
 
 // Handle User sign in on POST.
-exports.user_sign_in_post = asyncHandler(passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/board/user/sign-in",
-}));
+exports.user_sign_in_post = asyncHandler(
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/board/user/sign-in",
+  })
+);
+
+// Display User sign out form on GET.
+exports.user_sign_out_get = asyncHandler(async (req, res, next) => {
+  res.render("sign_out_form", { user: req.user, title: "Sign Out" });
+});
+
+// Handle User sign out on POST.
+exports.user_sign_out_post = asyncHandler(async (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
 
 // Display Club join form on GET.
 exports.user_join_club_get = asyncHandler(async (req, res, next) => {

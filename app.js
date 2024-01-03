@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const session = require("express-session");
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const passport = require("./passport_setup");
 const indexRouter = require("./routes/index");
@@ -40,6 +41,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+//Routes
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/board", boardRouter);

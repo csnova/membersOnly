@@ -2,9 +2,9 @@ extends layout
 
 block content
 
-    h1 User: #{user.username}
-    p Name: #{user.name_initial}
-    p Membership Status: #{user.membership}
+    h1 User: #{current_user.username}
+    p Name: #{current_user.name_initial}
+    p Membership Status: #{current_user.membership}
 
     div(style='margin-left:20px;margin-top:20px')
 

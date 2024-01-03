@@ -25,6 +25,7 @@ exports.message_list = asyncHandler(async (req, res, next) => {
     .exec();
 
   res.render("message_list", {
+    user: req.user,
     title: "Message List",
     message_list: allMessages,
   });
@@ -44,6 +45,7 @@ exports.message_detail = asyncHandler(async (req, res, next) => {
   }
 
   res.render("message_detail", {
+    user: req.user,
     title: message.title,
     message: message,
   });

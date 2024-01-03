@@ -2,9 +2,15 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #[em Members Only], a very exclusive message board.
 
-  p #{user ? `Welcome back ${user.name_initial}` : "Who are you?"}
+
+  if user
+    p Welcome back #{user.name_initial}
+
+  else
+    p Welcome to #[em Members Only], a very exclusive message board.
+    a(href='/board/user/sign-in') Sign In 
+    | to view full content
 
   h1 Site Totals
 
