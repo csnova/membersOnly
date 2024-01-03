@@ -10,6 +10,7 @@ exports.index = asyncHandler(async (req, res, next) => {
   ]);
 
   res.render("index", {
+    user: req.user,
     title: "Members Only Home",
     message_count: numMessages,
     user_count: numUsers,

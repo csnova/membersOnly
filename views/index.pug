@@ -4,6 +4,8 @@ block content
   h1= title
   p Welcome to #[em Members Only], a very exclusive message board.
 
+  p #{user ? `Welcome back ${user.name_initial}` : "Who are you?"}
+
   h1 Site Totals
 
   p You can currently find:

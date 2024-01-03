@@ -28,7 +28,7 @@ UserSchema.virtual("name_initial").get(function () {
   familyInitial = familyInitial.substr(0, 1);
   let nameInitial = "";
   if (this.first_name && familyInitial) {
-    nameInitial = `${this.family_name} ${familyInitial}.`;
+    nameInitial = `${this.first_name} ${familyInitial}.`;
   }
   return nameInitial;
 });

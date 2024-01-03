@@ -34,7 +34,7 @@ router.post("/user/sign-up", user_controller.user_sign_up_post);
 router.get("/user/sign-in", user_controller.user_sign_in_get);
 
 // POST request User Sign In
-router.post("/user/sign-in", user_controller.user_sign_up_post);
+router.post("/user/sign-in", user_controller.user_sign_in_post);
 
 // GET request to join club.
 router.get("/user/club", user_controller.user_join_club_get);
