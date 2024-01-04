@@ -63,13 +63,11 @@ exports.message_create_post = [
   body("title")
     .trim()
     .isLength({ min: 1 })
-    .withMessage("There must be a title.")
-    .escape(),
+    .withMessage("There must be a title."),
   body("text")
     .trim()
     .isLength({ min: 1 })
-    .withMessage("Message text must be at least 8 characters long.")
-    .escape(),
+    .withMessage("Message text must be at least 8 characters long."),
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
@@ -78,7 +76,6 @@ exports.message_create_post = [
 
     // Create message object with escaped and trimmed data
     const dateTime = new Date();
-
     const message = new Message({
       title: req.body.title,
       text: req.body.text,

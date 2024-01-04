@@ -8,7 +8,7 @@ block content
         a(href='/board/user/sign-in') Sign In
 
     else
-        form(method='POST')
+        form(method='POST' accept-charset='UTF-8')
             div.form-group
                 label(for='title') Title:
                 input#title.form-control(type='text' placeholder='Message Title' name='title' required)
