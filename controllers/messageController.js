@@ -1,6 +1,7 @@
 const Message = require("../models/message");
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
+const { body, validationResult } = require("express-validator");
 
 exports.index = asyncHandler(async (req, res, next) => {
   // Get details of messages and user counts (in parallel)
@@ -52,11 +53,82 @@ exports.message_detail = asyncHandler(async (req, res, next) => {
 });
 
 // Display message create form on GET.
-exports.message_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Message create GET");
-});
+exports.message_create_get = (req, res, next) => {
+  res.render("new_message_form", { user: req.user, title: "New Message" });
+};
 
 // Handle message create on POST.
-exports.message_create_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Message create POST");
+exports.message_create_post = [
+  // Validate and sanitize fields.
+  body("title")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("There must be a title.")
+    .escape(),
+  body("text")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Message text must be at least 8 characters long.")
+    .escape(),
+
+  // Process request after validation and sanitization.
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create message object with escaped and trimmed data
+    const dateTime = new Date();
+
+    const message = new Message({
+      title: req.body.title,
+      text: req.body.text,
+      user: req.user,
+      timestamp: dateTime,
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/errors messages.
+      res.render("new_message_form", {
+        user: req.user,
+        title: "New Message",
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data from form is valid.
+
+      // Save message.
+      await message.save();
+      // Redirect to messages
+      res.redirect("/board/messages");
+    }
+  }),
+];
+
+// Display message delete form on GET.
+exports.message_delete_get = asyncHandler(async (req, res, next) => {
+  const [message] = await Promise.all([Message.findById(req.params.id).exec()]);
+
+  if (message === null) {
+    // No results.
+    const err = new Error("Message not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("delete_form", {
+    user: req.user,
+    message: message,
+    title: "Delete Message",
+  });
+});
+
+// Handle message delete form on GET.
+exports.message_delete_post = asyncHandler(async (req, res, next) => {
+  // Get details of message
+  const [message] = await Promise.all([Message.findById(req.params.id).exec()]);
+
+  //Delete message and redirect to list of messages.
+  await Message.findByIdAndDelete(req.body.messageid);
+  res.redirect(`/board/messages`);
 });

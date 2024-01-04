@@ -7,3 +7,6 @@ block content
         a(href=message.user.url) #{message.user.username}
     p #[strong Message:] #{message.text}
     p #[strong Time: ] #{message.timestamp_formatted}
+
+    if user.admin  
+        a(href=`${message.url}/delete`) Delete Message

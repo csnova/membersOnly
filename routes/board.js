@@ -16,6 +16,12 @@ router.get("/message/create", message_controller.message_create_get);
 // POST request for creating Message.
 router.post("/message/create", message_controller.message_create_post);
 
+// GET request for deleting a message.
+router.get("/message/:id/delete", message_controller.message_delete_get);
+
+// POST request for creating Message.
+router.post("/message/:id/delete", message_controller.message_delete_post);
+
 // GET request for one Message.
 router.get("/message/:id", message_controller.message_detail);
 

@@ -7,17 +7,19 @@ block content
         tr
             th Title
             th Text
-            th Time
-            th User
+            if user 
+                th Time
+                th User
 
         each message in message_list
             tr
                 td 
                     a(href=message.url) #{message.title}
                 td  #{message.text} 
-                td #{message.timestamp_formatted}
-                td   
-                    a(href=message.user.url) #{message.user.username}
+                if user 
+                    td #{message.timestamp_formatted}
+                    td   
+                        a(href=message.user.url) #{message.user.username}
 
         else
             li There are no messages.

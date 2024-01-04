@@ -3,18 +3,23 @@ extends layout
 block content
     h1= title
 
-    table
-        tr
-            th Username
-            th Name
-            th Membership Status
+    if !user
+        h3 You must sign in to access user information! 
+        a(href='/board/user/sign-in') Sign In  
 
-        each user in user_list
+    if user 
+        table
             tr
-                td  
-                    a(href=user.url) #{user.username}
-                td  #{user.name_initial} 
-                td  #{user.membership}
+                th Username
+                th Name
+                th Membership Status
 
-        else
-            li There are no users.
+            each user in user_list
+                tr
+                    td  
+                        a(href=user.url) #{user.username}
+                    td  #{user.name_initial} 
+                    td  #{user.membership}
+
+            else
+                li There are no users.

@@ -8,6 +8,7 @@ const UserSchema = new Schema({
   username: { type: String, required: true, maxLength: 100 },
   membership: { type: String, required: true, maxLength: 100 },
   password: { type: String, required: true, maxLength: 100 },
+  admin: { type: Boolean, required: false },
 });
 
 // Virtual for user's full name
@@ -32,6 +33,20 @@ UserSchema.virtual("name_initial").get(function () {
   }
   return nameInitial;
 });
+
+// Virtual for membership status
+UserSchema.virtual("isPremium").get(function () {
+  let isPremium = false;
+  if (this.membership === "Premium") {
+    isPremium = true;
+  }
+  return isPremium;
+});
+
+// A static method to the User model for finding a user by username
+UserSchema.statics.findByUsername = async function (username) {
+  return this.findOne({ username });
+};
 
 // Virtual for user's URL
 UserSchema.virtual("url").get(function () {

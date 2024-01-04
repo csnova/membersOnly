@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1=title
+
+    if user.admin
+        form(method='POST')
+            div.form-group
+            p Are you sure you want to delete this message?
+            form(method='POST' action='')
+                div.form-group
+                    input#messageid.form-control(type='hidden' name='messageid' required='true', value=message._id )
+                button.btn.btn-primary(type='submit') Delete Message
+
+    else
+        p You must be an admin to delete messages.
+
+    if errors
+        ul
+            for error in errors
+                li!= error.msg
+

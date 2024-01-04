@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    h1=title
+
+    if user
+        if user.isPremium
+            p Thank you #{user.name_initial} for being a club member!
+
+        h2 Why be a club member?
+
+        ul  
+            li You can see more detail about other members! 
+            li You get a cool crown next to your username! 
+            li It doesn't cost you anything!
+
+        if !user.isPremium
+            h2 Why not Join?
+            form(method='POST')
+                label(for='code') Do you know the code?
+                input#code.form-control(type='text' placeholder='Secret Code' name='code' required)
+                button.btn.btn-primary(type='submit') Join Club
+            if error
+                p Looks like you don's have the code... yet! 
+
+    else
+        h2 Why be a club member?
+
+        ul  
+            li You can see more detail about other members! 
+            li You get a cool crown next to your username! 
+            li It doesn't cost you anything!
+
+        h2 Sign In to Join!
+        a(href='/board/user/sign-in') Sign In 
+
+
+
+

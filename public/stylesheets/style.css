@@ -104,3 +104,8 @@ input,
 select {
   margin: 5px;
 }
+
+.largeInput {
+  height: 100px;
+  width: 300px;
+}

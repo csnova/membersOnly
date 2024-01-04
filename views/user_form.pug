@@ -12,6 +12,9 @@ block content
             input#password.form-control(type='password' placeholder='Must be 8 characters long' name='password' required value=(undefined===user ? '' : user.password) )
         button.btn.btn-primary(type='submit') Submit
 
+    h3 Not a User yet?
+    a(href='/board/user/sign-up') Sign Up 
+
     if errors
         ul
             for error in errors
