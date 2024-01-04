@@ -14,11 +14,12 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const boardRouter = require("./routes/board");
 
+const port = process.env.PORT || 3000;
 const app = express();
 
 // Set up mongoose connection
 mongoose.set("strictQuery", false);
-const mongoDB = process.env.MANGODB_SECRET_KEY;
+const mongoDB = process.env.MANGODB_KEY;
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
